@@ -1,0 +1,780 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Operational Amplifiers and Signal Conditioning</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>2df99138-f3f6-4cc1-8c82-fa3f92dcb8d8</md:uuid>
+</metadata>
+<content>
+<section id="id9802794">
+<title>Introduction:</title>
+<para id="id9803116">In this lab, you will build several basic
+op-amp circuits to learn about the signal conditioning of sensor
+signals.</para>
+</section>
+<section id="id9802768">
+<title>Teaching Objectives</title>
+<list list-type="bulleted" id="id4473898">
+<item>Understand how an op-amp works.</item>
+<item>Learn about different types of op-amp circuits and their
+uses.</item>
+<item>Gain practical experience in implementing op-amp
+circuits.</item>
+<item>Build a voltage divider, an inverter, a differential
+amplifier, a gain circuit, and low-pass filter circuits.</item>
+<item>Demonstrate the filtering capability of the low-pass filter
+and its use to prevent aliasing of sampled data.</item>
+</list>
+</section>
+<section id="id9801311">
+<title>Preliminary Reading</title>
+<para id="id9801318">Figliola and Beasley</para>
+<para id="id8414945">Analog Signal Conditioning: 211-226 (Sections
+6.6-6.8)</para>
+</section>
+<section id="id8414958">
+<title>Component Identification</title>
+<para id="id9860819">In this lab, we will be using several types of
+electronic components: resistors, capacitors, trim potentiometers,
+and op-amps.</para>
+<section id="id9860828">
+<title>Resistors</title>
+<para id="id9860834">Resistors come in a wide range of resistances.
+For op-amp circuits, values in the range of 10 k ohm to 250 k ohm
+work best. For this lab, we will use primarily 10 k ohm and 100 k
+ohmresistors and maybe a few others. Resistors are color coded so
+that with some practice you can decipher resistance values from the
+color bands on the resistors you are using.</para>
+</section>
+<section id="id9860259">
+<title>Capacitors</title>
+<para id="id9860265">Capacitors also come in a wide range of values
+and are made using a variety of techniques. The capacitors that we
+will use for signal conditioning are fairly small and have
+capacitances measured in Pico farads or microfarads. Some
+capacitors are polarized and care must be taken to ensure that they
+are connected to a circuit with the proper orientation.</para>
+<figure id="id9860288"><media id="idm9227104" alt=""><image src="../../media/Graphic1-f5b3.png" mime-type="image/png"/></media>
+
+<caption> Trim Potentiometer Schematic </caption></figure>
+
+</section>
+<section id="id9860338">
+<title>Trim Potentiometers</title>
+<para id="id9860345">A trim potentiometer is a variable resistor.
+It has three leads.</para>
+<list list-type="enumerated" id="id9860358">
+<item>Positive power supply</item>
+<item>Wiper</item>
+<item>Reference power</item>
+</list>
+<para id="id9860377">The resistance of the trim pot is measured
+between the wiper and one of the other two leads. A trim-pot is
+depicted schematically in Figure 1. An adjustment screw moves the
+wiper along the length of a coil resistor. The resistance between
+lead 1 and the wiper increases or decreases as the wiper moves
+further or closer.</para>
+<para id="id9860402">The output voltage (Vout ) is related to the
+input voltages by the following relationship:</para>
+<para id="id9860421"><figure id="id9860424">
+<media id="idp4284496" alt=""><image src="../../media/Graphic2-00cf.png" mime-type="image/png"/></media>
+<caption> equation (1)</caption>
+</figure></para>
+</section>
+<section id="id9860454">
+<title>Operational Amplifier (Op-Amp)</title>
+<para id="id9860460">For this lab, we will use the LM741 op-amp.
+The LM741 is a very common op-amp package, with one op-amp per
+integrated circuit (IC). (Many op-amp packages have two or four
+op-amps per IC.) A schematic representation of the LM 741 is shown
+in Figure 3. The semi-circular depression on the chip marks the top
+of the chip and the pins are numbered counterclockwise around the
+chip. The highest number pin is always opposite pin 1.</para>
+<para id="id9860503">LM741 Pinout:</para>
+<list list-type="enumerated" id="id9860512">
+<item>Null offset adjustment (not used)</item>
+<item>Inverting (-) input</item>
+<item>Non-inverting (+) input</item>
+<item>Connect to -12 V</item>
+<item>Null offset adjustment (not used)</item>
+<item>Output</item>
+<item>Connect to +12 V</item>
+<item>Not used</item>
+</list>
+<para id="id9861291">Data sheets for this and other integrated
+circuits (IC's) can be obtained from the National Semiconductor web
+site (www.national.com).</para>
+<figure id="id9861304"><media id="idp1896464" alt=""><image src="../../media/Graphic3-7273.png" mime-type="image/png"/></media>
+
+<caption> LM741 Connection Diagram </caption></figure>
+
+</section>
+<section id="id9861591">
+<title>The Prototyping Board</title>
+<para id="id9861597">You will build circuits for this lab using a
+solderless prototyping board known as a proto-board or breadboard.
+Breadboards allow us to connect circuits by plugging in components
+and wires. No soldering is required. A drawing of a breadboard is
+shown in Figure 4 below. As indicated by the gray lines, horizontal
+rows of connectors in areas B and C are internally connected. When
+a chip is plugged into the board as shown, these strips give you
+four connections to each of the IC pins. The connections in regions
+A and D are intended as power and ground buses. As indicated by the
+gray lines, the columns in these regions are tied together
+vertically.</para>
+<figure id="id9861644"><media id="idm8820928" alt=""><image src="../../media/Graphic4-4d7b.png" mime-type="image/png"/></media>
+
+<caption> Breadboard </caption></figure>
+
+<para id="id9861738">The breadboards are fairly robust; however
+they are susceptible to damage from wires that are too large. Do
+not use wires larger than 28 gauge. Components with leads that are
+too large can damage the breadboard as well.</para>
+</section>
+</section>
+<section id="id9861754">
+<title>Procedure</title>
+<section id="id9861761">
+<title>Part 1: Set Up the Power Supply</title>
+<para id="id9861767">You will use a Tektronix triple-output power
+supply. The power supplies should be set up when you come to lab.
+For your reference, set-up instructions are given below. Perform
+the following steps before you turn the power supply on.</para>
+<para id="id9861786">The power supply has three dc-power outputs;
+one capable of 0-5 V, and two capable of 0-15 V. To power the
+electronic components for the lab, we will need a +12 V supply, a
+–12 V supply, and a ground connection. We will use the two 0-15 V
+outputs in series and adjust them to output approximately 12 V
+each.</para>
+<list list-type="enumerated" id="id9861802">
+<item>Switch the power supply to “series”.</item>
+<item>Adjust the “A” power to ~ 12 V (the “B” output will match the
+“A” output).</item>
+<item>Connect a red cable to the “+” terminal for the “A” power
+output.</item>
+<item>Connect a black cable to the “–“ terminal for the “B” power
+output.</item>
+</list>
+<para id="id9861842">In this configuration, the negative side of
+the “B” output is a –12 V source. The positive side of the “A”
+output becomes the +12 V source. The positive side of the “B”
+output and the negative side of the “A” output are the
+ground.</para>
+<para id="id9861860">Incorrectly connecting an op-amp to the power
+supply will destroy the op-amp. Make sure that the op-amp is
+connected with correct polarity.</para>
+</section>
+<section id="id9861870">
+<title>Part 2: Preparing the Breadboard</title>
+<list list-type="enumerated" id="id9861876">
+<item>Connect the +12 V supply to one of the strips in the A
+region.</item>
+<item>The other strip in the A region should be tied to
+ground.</item>
+<item>In the D region, one of the strips should be the –12 V
+bus.</item>
+<item>The other D region strip should be used as a ground
+bus.</item>
+</list>
+<para id="id9861908">Your breadboard is now configured to power the
+circuits for this lab.</para>
+</section>
+<section id="id9861914">
+<title>Part 3: Generate a Simulated Signal</title>
+<para id="id9861920">Use the function generator to create a sine
+wave with the following characteristics:</para>
+<list list-type="bulleted" id="id9861926">
+<item>50 Hz</item>
+<item>amplitude of 80 mV</item>
+<item>offset (bias) of approximately 800 mV</item>
+</list>
+<para id="id9861945">For such a small signal, the Attenuator button
+on the function generator must be depressed. This signal will be
+treated as the output of a sensor. We will condition this "sensor
+output" with a signal conditioning circuit.</para>
+</section>
+<section id="id9861964">
+<title>Part 4: Modify Existing VI for Multiple Inputs</title>
+<para id="id9861971">In this lab, we will build on the skills that
+were developed in <link document="m13771">Introduction to Benchtop Equipment and Data Acquisition</link> and <link document="m13774">Temperature Measurement and First-Order Dynamic Response</link>. It is assumed that the student
+understands the concepts of a Front Panel, a Block Diagram, the
+Control Palette, and the Functions Palette. It is also assumed that
+the student can search the control and functions palette for
+necessary features. The student should be familiar with
+configuration options for voltage measurements using the DAQ
+Assistant.</para>
+<para id="id9861994">The VI that you developed for <link document="m13774">Temperature Measurement and First-Order Dynamic Response</link> can be
+easily modified to examine circuit inputs and outputs.</para>
+<list list-type="enumerated" id="id9862001"><item>Open the VI named Lab3 that you saved during <link document="m13774">Temperature Measurement and First-Order Dynamic Response</link>.</item>
+<item>Open the DAQ Assistant Configuration Box. 
+<list list-type="enumerated" id="id9862026">
+<item>Delete the Voltage channel.</item>
+<item>Add a voltage channel for module 1, analog input 0.</item>
+<item>Add a voltage channel for module 1, analog input 1.</item>
+<item>For the Terminal Configuration, select Differential.</item>
+<item>For Acquisition Mode, select Continuous.</item>
+</list></item>
+<item>Click File&gt;&gt;Save As…&gt;&gt;Substitute Copy for
+Original to save your VI with a new name.</item>
+</list>
+<figure id="id9862094"><media id="idm2385600" alt=""><image src="../../media/Graphic5-4d1e.png" mime-type="image/png"/></media>
+
+<caption> Modified Block Diagram </caption></figure>
+
+</section>
+<section id="id9862135">
+<title>Part 5: Op-Amp Circuits</title>
+<para id="id9862141">Before building a circuit to condition the
+signal, you will build a couple of simple op-amp circuits to get a
+feel for what to do.</para>
+<section id="id9862149">
+<title>5.1 Inverting Circuit</title>
+<para id="id9862155">The inverter is one of the simplest op-amp
+circuits. This circuit simply changes the sign of a signal. The
+schematic diagram of an inverter is shown in Figure 6.</para>
+<list list-type="enumerated" id="id9862175">
+<item>Build the inverter using two 10 k ohm resistors and an LM741
+op-amp.</item>
+<item>Input the signal from the function generator to the
+circuit.</item>
+<item>Branch the input cable with a BNC T-connector. Connect this
+input to Channel 0 on Module 1 of the SCXI.</item>
+<item>Connect the output signal from the circuit to the Channel 1
+on module 1 of the SCXI.</item>
+<item>When you run the VI, you may need to adjust the scales on the
+X and Y axes.</item>
+</list>
+<para id="id9862216">You should see that the output is an inverted
+version of the input.</para>
+<figure id="id9862229"><media id="idm2303008" alt=""><image src="../../media/Graphic6-0166.png" mime-type="image/png"/></media>
+
+<caption> Inverter and Inverting Gain
+Circuits </caption></figure>
+
+</section>
+<section id="id9862279">
+<title>5.2 Inverting Gain Circuit</title>
+<para id="id9862286">The inverting gain circuit changes the sign of
+the signal and multiplies the amplitude. Increasing the amplitude
+of a signal can be very important in distinguishing subtle signal
+characteristics. Quantization errors result when a signal
+characteristic is too small to be detected by a measurement system.
+(You will learn more about quantization errors in lecture, and on
+pages 249-250 in your text.)</para>
+<list list-type="enumerated" id="id9862301">
+<item>Replace the feedback resistor (R2 as shown in Figure 5) in
+your inverter circuit with a 100 k ohm resistor. This will cause
+the input signal to be inverted and amplified by a factor of
+ten.</item>
+<item>Run the VI again.</item>
+</list>
+<para id="id9862335">With the amplification, the input offset of
+800 mV has increased to an 8 V output.</para>
+<para id="id9862341">Note: Using the data acquisition card to view
+the signal, you may saturate the ADC with the amplified signal. All
+you will be able to see is a flat line near +5 V or –5 V.</para>
+</section>
+</section>
+<section id="id9862356">
+<title>Part 6: Bias Correction</title>
+<para id="id9862362">For the amplified signal to be read correctly,
+the 800 mV bias must be removed. A two step process will be used to
+remove the bias:</para>
+<list list-type="bulleted" id="id9862371">
+<item>A Trim Potentiometer will be used to step down a 12V DC
+signal to 800 mV.</item>
+<item>A Differential Amplifier circuit will be built to subtract
+this stepped down voltage from the sine wave.</item>
+</list>
+<para id="id9862398">The result will be an 80 mV sine wave with
+zero mean.</para>
+<section id="id9862404">
+<title>6.1 Trim Potentiometer Adjustment</title>
+<para id="id9862410">Use the 10 k ohm trim potentiometer provided to
+build a voltage divider as shown below.</para>
+<list list-type="enumerated" id="id9862422">
+<item>Connect one end lead of the potentiometer to the +12 V
+bus.</item>
+<item>Connect the other end lead to the –12 V bus.</item>
+<item>Connect a voltmeter across the wiper lead and ground to
+measure the output.</item>
+<item>Adjust the potentiometer resistance until the voltage on the
+wiper lead is 800 mV.</item>
+</list>
+<figure id="id9862479"><media id="idp948144" alt=""><image src="../../media/Graphic7-4c30.png" mime-type="image/png"/></media>
+
+<caption> Voltage divider circuit </caption></figure>
+
+</section>
+<section id="id9862521">
+<title>6.2 Differential amplifier</title>
+<para id="id9862527">You will build a differential amplification
+circuit to subtract 800 mV from the sensor signal. A differential
+amplifier is shown in Figure 8 below.</para>
+<list list-type="enumerated" id="id9862554">
+<item>Use four 10 k ohm resistors to subtract the voltage divider
+output from the sensor signal. It is unlikely that the resulting
+output signal will be a zero-mean sine wave as desired.</item>
+<item>Adjust the screw on the potentiometer to "trim" the offset of
+the sine wave to zero.</item>
+<item>Amplify the difference between the signals by replacing the
+R2 resistors so that R2 &gt; R1. Replace the R2 resistors with 100
+k ohm resistors.</item>
+</list>
+<para id="id9862607">The resultant signal should be an 800 mV sine
+wave with minimal offset.</para>
+<para id="id9862617">Using the inverting gain circuit shown in
+Figure 8, amplify the output of the differential amplifier circuit
+by an additional factor of ten. This can be done with another
+op-amp and a 10 k ohm resistor and a 30 k ohm resistor. The
+resultant output signal should have a mean of zero and amplitude of
+~2.4 V. Adjust the potentiometer to remove any offset.</para>
+<figure id="id9862650"><media id="idm387920" alt=""><image src="../../media/Graphic8-7774.png" mime-type="image/png"/></media>
+
+<caption> Differential Amplifier
+Circuit </caption></figure>
+
+</section>
+</section>
+<section id="id9862702">
+<title>Part 7: Low-Pass Filtering</title>
+<para id="id9862708">A low pass filter can be used to attenuate
+high-frequency noise in an analog signal and to minimize the
+portion of the signal that will be aliased. Later in this lab, you
+will see a demonstration of the damaging effects of
+aliasing.</para>
+<figure id="id9862722"><media id="idm3172112" alt=""><image src="../../media/Graphic9-4698.png" mime-type="image/png"/></media>
+
+<caption> First-Order Low-Pass Filter </caption></figure>
+
+<section id="id9862772">
+<title>7.1 Build an Active Low-Pass Filter</title>
+<list list-type="enumerated" id="id9862778"><item>Build the first-order filter shown in Figure 9 with R1 = R2 =
+10 k ohm and C2 = 0.1 micro F. First order filters are so-called because
+their dynamics are modeled by first-order differential
+equations.</item>
+<item>Connect the output of the circuit to Channel 1 on your DAQ
+system.</item>
+<item>The filter’s time constant is equal to R2C2. Calculate values
+for the cut-off frequency and the time constant.</item>
+</list>
+</section>
+<section id="id9862864">
+<title>7.3 Modifying Existing VI to Measure Magnitude Ratio</title>
+<para id="id9862872">By measuring the magnitude of the input and
+output of a filter, you can determine the how much the filter
+attenuates the signal.</para>
+<figure id="id9862881"><media id="idm9420944" alt=""><image src="../../media/Graphic10-737a.png" mime-type="image/png"/></media>
+
+<caption> Completed Block Diagram </caption></figure>
+
+<list list-type="enumerated" id="id9865132"><item>Delete the Amplitude and Frequency constants from the Block
+Diagram.</item>
+<item>Hold Ctrl as you drag the Tone Measurements icon to make a
+copy.</item>
+<item>Place a Split Signals icon to the left of the Tone
+icons.</item>
+<item>Place a Divide function to the right of the Tone
+icons.</item>
+<item>Create a numeric indicator at the x/y output terminal of the
+Divide function.</item>
+<item>Rename the numeric indicator Magnitude Ratio. (The Magnitude
+Ratio represents the output amplitude divided by the input
+amplitude.)</item>
+<item>Wire the Block Diagram as shown in Figure 10.</item>
+<item>Save the VI.</item>
+</list>
+</section>
+<section id="id9865249">
+<title>7.2 Testing a Filter</title>
+<para id="id9865255">We expect that the filter will allow
+frequencies below the cut-off frequency to "pass", and will
+attenuate signals at higher frequencies. The Magnitude Ratio will
+be recorded as the output magnitude divided by the input
+magnitude.</para>
+<list list-type="enumerated" id="id9865270">
+<item>Connect the signal going into your filter to Channel 0 of
+module 1 of the SCXI.</item>
+<item>Connect the signal coming out of your filter to Channel 1 of
+module 1 of the SCXI.</item>
+<item>Input a 1 V sine wave with zero offset into the low-pass
+filter circuit.</item>
+<item>Starting with a frequency of about 10 Hz, slowly increase the
+frequency of the input signal. What happens to the output
+signal?</item>
+<item>Increase frequencies to 2 kHz.</item>
+<item>Using the table below, determine the magnitude ratio at
+several frequencies.</item>
+</list>
+<para id="id9865321">Table 1: Magnitude Ratio Data for First-Order
+Low-Pass Filter (Active)</para>
+<table id="id9865338" summary="">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1"/>
+<colspec colnum="2" colname="c2"/>
+<colspec colnum="3" colname="c3"/>
+<colspec colnum="4" colname="c4"/>
+<tbody>
+<row>
+<entry>frequency (Hz)</entry>
+<entry>Input magnitude (V)</entry>
+<entry>Output magnitude (V)</entry>
+<entry>Magnitude ratio</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>18</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>32</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>58</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>110</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>190</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>340</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>620</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>1100</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>2000</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+<list list-type="enumerated" id="id9865754">
+<item>Using Excel, plot the following two sets of data on a single
+log-log chart.</item>
+</list>
+<list list-type="enumerated" id="id9865765">
+<item>
+<list list-type="enumerated" id="id9865771">
+<item>Calculated magnitude ratio vs. frequency.</item>
+<item>Measured magnitude ratio vs. frequency</item>
+</list>
+</item>
+</list>
+<para id="id9865785">Do the magnitude ratio and phase difference
+between the input and output behave as you would expect?</para>
+<list list-type="enumerated" id="id9865791">
+<item>Input a 30 Hz square wave into the low-pass filter. Record
+your observations.</item>
+<item>Measure the time constant from the oscilloscope
+screen.</item>
+</list>
+<para id="id9865813">Does it correlate with your calculated values
+based on resistor and capacitor values?</para>
+</section>
+<section id="id9865820">
+<title>7.3 Build a Passive Low-Pass Filter</title>
+<para id="id9865826">The filter described in step 6.1 is an active
+filter, meaning it requires an external power source. Since it uses
+an op-amp, it must have a ±12 V power supply. Active filters can
+have a static gain greater than one. Active filters also have low
+output impedance, which means that they can pass up to 10 mA of
+current without any effects on the operation of the filter.</para>
+<para id="id9865843">A passive low-pass filter does not require an
+external power source. A passive filter can be constructed with
+simply a resistor and capacitor as shown in Figure 11.</para>
+<list list-type="enumerated" id="id9865861">
+<item>Build a filter using a 10 k ohm resistor and a 0.1 micro F
+capacitor.</item>
+<item>Repeat section 6.2 (steps 4-11). Record your results in your
+lab book. You may use Table 2 to organize your data.</item>
+</list>
+<figure id="id9865892"><media id="idm8491472" alt=""><image src="../../media/Graphic11-5730.png" mime-type="image/png"/></media>
+
+<caption> Passive First-order Low-pass
+filter </caption></figure>
+
+<para id="id9865939">Table 2: Magnitude Ratio Data for First-order
+Low-pass Filter (Passive)</para>
+<table id="id9865961" summary="">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1"/>
+<colspec colnum="2" colname="c2"/>
+<colspec colnum="3" colname="c3"/>
+<colspec colnum="4" colname="c4"/>
+<tbody>
+<row>
+<entry>frequency (Hz)</entry>
+<entry>Input magnitude (V)</entry>
+<entry>Output magnitude (V)</entry>
+<entry>Magnitude ratio</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>18</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>32</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>58</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>110</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>190</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>340</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>620</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>1100</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>2000</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section id="id9866378">
+<title>7.4 Build a Second-Order Butterworth filter</title>
+<para id="id9866384">Figure 12 below shows a second-order
+Butterworth low-pass filter. A second-order filter is superior to a
+first-order filter in many respects, as we will investigate.</para>
+<list list-type="enumerated" id="id9866400">
+<item>Build the Butterworth filter circuit using R = 10 k
+ohm and C = 0.1 micro F.</item>
+<item>Perform the sine wave and square-wave input tests from step
+6.2. Record your results in your lab book. You may use Table 3 to
+organize your data.</item>
+</list>
+<para id="id9866427">How is the response of this filter different
+from that of the first-order filter?</para>
+<figure id="id9866439"><media id="idm8698528" alt=""><image src="../../media/Graphic12-096d.png" mime-type="image/png"/></media>
+
+<caption> Second-order Butterworth Low-pass
+Filter </caption></figure>
+
+<para id="id9866485">Table 3: Magnitude Ratio Data for Second-Order
+Low-Pass Filter</para>
+<table id="id9866508" summary="">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1"/>
+<colspec colnum="2" colname="c2"/>
+<colspec colnum="3" colname="c3"/>
+<colspec colnum="4" colname="c4"/>
+<tbody>
+<row>
+<entry>frequency (Hz)</entry>
+<entry>Input magnitude (V)</entry>
+<entry>Output magnitude (V)</entry>
+<entry>Magnitude ratio</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>18</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>32</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>58</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>110</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>190</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>340</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>620</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>1100</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+<row>
+<entry>2000</entry>
+<entry>1V</entry>
+<entry/>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+</section>
+<section id="id9866923">
+<title>Part 8: Aliasing</title>
+<para id="id9866929">Aliasing is a generally undesired phenomenon
+that results when periodic signals are sampled too slowly. Aliasing
+causes high frequency periodic signals to be recorded as signals
+consisting of lower frequencies, as will be apparent in the
+following steps.</para>
+<section id="id9866940">
+<title>8.1 Non-Filtered Signal</title>
+<para id="id9866946">You will cause a signal to be aliased as it is
+converted from an analog to a digital signal.</para>
+<list list-type="enumerated" id="id9866953">
+<item>On the block diagram, create Numeric Indicators to display
+Frequency and Amplitude.</item>
+<item>Wire the Numeric Indicators to the Tone Measurements icon for
+the second channel.</item>
+<item>Change the sample rate of the DAQ Assistant to 1000 S/sec
+(samples per second).</item>
+<item>Calculate the Nyquist Frequency for this sample rate.</item>
+<item>Connect the output of the Function Generator directly to the
+second input channel on the SCXI.</item>
+<item>Adjust the function generator to create a sine wave with a
+frequency of 50 Hz and amplitude of 1 V.</item>
+<item>Slowly increase the frequency of the sine wave until you
+reach 400 Hz. Observe what happens to the sampled version of the
+sine wave.</item>
+<item>Increase the frequency to 500 Hz. What is the measured
+frequency and amplitude?</item>
+<item>Why doesn’t LabVIEW display a “true” image of the wave
+form?</item>
+<item>Continue to increase the frequency of the sine wave to 1000
+Hz.</item>
+<item>Describe what happens to the amplitude and the frequency of
+the sampled signal as the frequency increases.</item>
+<item>Why is the frequency displayed in LabVIEW different from the
+frequency supplied by the function generator? How are the two
+frequencies related?</item>
+</list>
+</section>
+<section id="id9867075">
+<title>8.2 Anti-Aliasing Filter</title>
+<para id="id9867081">Low pass filters are frequently employed to
+minimize the portion of a signal that is aliased.</para>
+<list list-type="enumerated" id="id9867087">
+<item>Input the signal from the function generator to the
+second-order Butterworth filter from Section 6.2.</item>
+<item>Connect the output of the filter to channel 2 of the
+SCXI.</item>
+<item>Set the sample rate to 1 kS/sec (as before).</item>
+<item>When used in this way, the filter is called an anti-aliasing
+filter. Comment on what you observe. How are your observations
+different from those in step 10 without the filter?</item>
+</list>
+</section>
+</section>
+<section id="id9867127">
+<title>Bonus</title>
+<para id="id9867134">Estimate the damping ratio of the second-order
+Butterworth filter through experimentation. To do this, you will
+probably need to take more measurements near the expected cut-off
+frequency of the filter (which is near the natural frequency).
+Support your result with plots and discussion as necessary.</para>
+</section>
+</section>
+<section id="id9867152">
+<title>Lab Report</title>
+<para id="id9867159">For this lab, you will write up the
+Introduction and Objective sections of a full formal report. You
+will be provided handouts with further instruction regarding what
+is expected.
+</para>
+</section>
+</content>
+</document>

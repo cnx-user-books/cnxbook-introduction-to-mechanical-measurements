@@ -1,0 +1,552 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Introduction to Benchtop Equipment and Data Acquisition</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>c70b57c6-f30c-46c7-b3ab-9b0a738b1f5d</md:uuid>
+</metadata>
+<content>
+<section id="id9046056">
+<title>Introduction:</title>
+<para id="id10356661">Many sensors produce analog (continuous)
+electrical signals. Once recorded, these signals are scaled to
+determine the magnitude of the physical phenomenon. In this lab,
+you will learn about some common methods for recording and
+displaying voltage signals. Your focus will not be on any
+particular sensing technology. In the process of performing the lab
+exercises, you will learn about hardware and software that you will
+use throughout the semester.</para>
+</section>
+<section id="id10123045">
+<title>Teaching Objectives:</title>
+<list list-type="bulleted" id="id8893926">
+<item>Learn to use a function generator to produce a variety of
+voltage signals.</item>
+<item>Become familiar with an oscilloscope and use it to record and
+analyze voltage signals.</item>
+<item>Become familiar with the lab PCs and PC-based data
+acquisition hardware.</item>
+<item>Learn how to write a simple LabVIEW VI to read a voltage
+signal and write data to a file.</item>
+</list>
+</section>
+<section id="id2504787">
+<title>Procedure:</title>
+<section id="id9288173">
+<title>Part 1: Creating a Signal with the Function Generator</title>
+<para id="id8906732">Throughout this lab you’ll be asked to create
+different signals with the function generator. The function
+generator at your workstation. Can create periodic square waves,
+sine waves and triangle waves. These waveforms can be injected into
+a circuit under test and analyzed as the waveform progresses to
+confirm the proper operation of the device or to pinpoint a fault.
+Try to be accurate, but don’t waste a lot of time trying to get the
+“exact” frequency or voltage levels listed. The purpose of this lab
+does not depend on meeting exact values; rather, this lab is to
+help you become familiar with how the signal characteristics can be
+manipulated.</para>
+<para id="id2597311">1. Turn on the oscilloscope and the function
+generator.</para>
+<para id="id8898162">2. Use the frequency range buttons along the
+top of the function generator to produce a sine wave with a
+frequency in the range of 200 to 500 Hz.</para>
+<para id="id2692040">3. Use the frequency knob (bottom left) to
+adjust the frequency.</para>
+<para id="id10026279">4. Adjust the signal amplitude and DC
+offset.</para>
+<para id="id6243622">Press the Display Select button next to the
+LCD readout.</para>
+<para id="id8974859">Turn the appropriate knobs located on the
+right side of the function generator (above the BNC
+connector).</para>
+<para id="id10066520">5. Using a BNC cable, connect the MAIN OUT of
+the function generator to CH 1 of the oscilloscope.</para>
+<para id="id10014443">6. Use the CH 1 and CH 2 buttons on the
+o-scope to turn the channels On or Off (e.g. to turn off CH 2,
+press CH 2 and then press OFF).</para>
+<para id="id10308073">7. Push the AUTOSET button. This will set the
+triggering, horizontal and vertical so that the signal is displayed
+nicely on the screen.</para>
+</section>
+<section id="id3433281">
+<title>Part 2: Analyzing a Signal with an Oscilloscope</title>
+<para id="id9743768">The digital oscilloscope (o-scope) is used for
+viewing voltage signals that change with time. The o-scope measures
+voltage and displays thousands of samples over time. It is easier
+to visualize the characteristics of a signal with an oscilloscope
+than with a digital multimeter.</para>
+<section id="id6223069">
+<title>2.1 Oscilloscope Menu</title>
+<para id="id4800685">Press the MENU button to bring up the menu
+options for the active channel. The far left option is the Coupling
+button.</para>
+<list list-type="bulleted" id="id9348559">
+<item>AC coupling only displays the AC (or changing) components of
+a wave.</item>
+<item>We will typically use DC coupling, which displays both DC
+(constant) and AC (changing) components.</item>
+<item>The Ground coupling option shows the ground level
+(0 volts) for channel 1.</item>
+</list>
+<para id="id8908674">When finished with the MENU: push the MENU
+button, followed by the Off button.</para>
+</section>
+<section id="id3501720">
+<title>2.2 Setting the Vertical Sweep</title>
+<para id="id2903002">The vertical SCALE knob (under the VERTICAL
+heading) is used to adjust the vertical range of the oscilloscope
+trace. The number next to CH1 in the lower left corner of the LCD
+screen shows how many volts are represented by each horizontal line
+on the screen.</para>
+<list list-type="bulleted" id="id7418300">
+<item>Turn the SCALE knob and note that the highlighted value
+changes. (To determine the amplitude of a signal, it is necessary
+to know how many volts each division represents.)</item>
+<item>Adjust the VERTICAL POSITION knob to move the entire trace up
+and down. The number 1 and the right arrow on the left side of the
+display indicate the ground level for channel 1.</item>
+</list>
+<figure id="id10085898"><media id="idm13239440" alt=""><image src="../../media/Graphic1.jpg" mime-type="image/jpeg"/></media>
+
+<caption> Oscilloscope adjustments </caption></figure>
+
+</section>
+<section id="id9056942">
+<title>2.3 Setting the Horizontal Sweep (refer to Figure 1)</title>
+<para id="id9618554">The SCALE knob under the HORIZONTAL heading is
+used to set the horizontal sweep speed.</para>
+<list list-type="bulleted" id="id9041084">
+<item>Turn this SCALE knob and observe how it changes the
+appearance of the signal on the o-scope.</item>
+<item>The number of seconds (usually milliseconds or microseconds)
+between each vertical line on the LCD screen is shown at the bottom
+center of the screen.</item>
+</list>
+<para id="id10256868">The HORIZONTAL POSITION adjustment moves the
+trace horizontally.</para>
+</section>
+<section id="id6043179">
+<title>2.4 MEASURE features (refer to Figure 2)</title>
+<list list-type="bulleted" id="id9984908">
+<item>Push the MEASURE button to bring up the MEASURE menu.</item>
+<item>Select the Select Measurement for Ch1.</item>
+<item>Scroll through the new menu that appears on the right side of
+the screen. Measure the frequency, period, and mean value of your
+input signal. Compare these measured values with the settings of
+the function generator.</item>
+</list>
+<para id="id10256882">Turn off the measurements you selected by
+pushing the Remove Measurement button from the MEASURE menu.</para>
+<figure id="id7086175"><media id="idm13090608" alt=""><image src="../../media/Graphic2.jpg" mime-type="image/jpeg"/></media>
+
+<caption> Measure, Cursor, and
+Save/Recall </caption></figure>
+
+</section>
+<section id="id9740304">
+<title>2.5 Trigger Options</title>
+<para id="id9898468">The Trigger makes signals appear to stand
+still on the screen rather than dancing all over the place. When
+the signal reaches a designated trigger level, the o-scope begins
+acquiring data. We will be using the Trigger MENU to adjust the
+triggering of the sweep of the oscilloscope display.</para>
+<section id="id9887800">
+<title>2.5.1 Types of Triggers</title>
+<list list-type="bulleted" id="id6183035">
+<item>Auto triggering:the scope will free-run in the absence of an
+adequate trigger signal. Useful for capturing periodic
+signals.</item>
+<item>Normal triggering: In the absence of an adequate trigger, no
+baseline trace will be present. Useful for capturing periodic
+signals.</item>
+<item>Single triggering: A single sweep is displayed when an
+acceptable trigger is detected. Useful for capturing a one-time
+event.</item>
+<item>Force triggering: Causes a trigger to occur even if there is
+not a signal of adequate magnitude.</item>
+</list>
+<figure id="id9576383"><media id="idm3922576" alt=""><image src="../../media/Graphic3.jpg" mime-type="image/jpeg"/></media>
+
+<caption> Triggering Options </caption></figure>
+
+</section>
+<section id="id9803164">
+<title>2.5.2 Adjusting the Trigger</title>
+<list list-type="bulleted" id="id9644455">
+<item>The TRIGGER LEVEL knob selects the amplitude of the trigger
+level. This value is indicated by a left arrow on the right side of
+the display.</item>
+<item>Bring up the trigger menu options by selecting the TRIGGER
+MENU button.</item>
+</list>
+<para id="id2751101">1. Set the trigger mode to NORMAL.</para>
+<para id="id9737797">2. Adjust the trigger level so that it is
+above the maximum voltage of the input signal. Notice that the
+trace remains fixed and that the trigger status displayed at the
+top right of the display goes from Trig’d to Trig?. This indicates
+that the channel 1 input has not met the trigger level.</para>
+<para id="id2933147">3. Now switch the trigger to AUTO mode. Notice
+how the signal rolls when the signal is not triggered (either too
+high or low).</para>
+<list list-type="bulleted" id="id10353969">
+<item>The SLOPE option selects which slope of the signal (rising or
+falling) will trigger the sweep.</item>
+<item>The SOURCE option determines the channel that provides the
+trigger signal.</item>
+</list>
+</section>
+<section id="id9645779">
+<title>Practice with Trigger Options</title>
+<para id="id2675669">1. Configure the function generator to produce
+a triangular waveform output at about 1 kHz.</para>
+<para id="id9763859">2. Set the normal trigger to work on the
+channel connected to the function generator.</para>
+<para id="id8465348">3. Make adjustments to the triggering so that
+you get a stable display of the triangle wave. Do not use auto
+triggering.</para>
+<para id="id9678786">4. Set the trigger slope to rising (arrow
+up).</para>
+<para id="id9680983">5. Adjust the amplitude of the function
+generator to be 1 V peak-to-peak, Vp-p,.</para>
+<para id="id9953965">6. Adjust the oscilloscope sensitivity using
+the controls we’ve introduced (do not use AUTOSET) so that the
+waveform is as large as possible. Adjust the time scale so that at
+least two and no more than five complete cycles are
+displayed.</para>
+<para id="id3944486">7. Experiment with the trigger LEVEL control.
+Notice how it sets the position of the waveform relative to the
+horizontal trigger position changes as the trigger level is
+adjusted.</para>
+<para id="id6076026">8. You should be able to move the starting
+point of the trace back and forth along the ramp in the triangular
+wave. Again notice how the indicator switches to Trig? when the
+level is set above or below the top and bottom of the waveform.
+This indicates that the scope is not triggering and therefore not
+actively sampling data.</para>
+<para id="id9913044">9. Set the trigger slope to Falling (arrow
+down) and observe that the trace now begins (relative to the
+horizontal trigger position) on the falling ramp of the
+wave.</para>
+</section>
+</section>
+<section id="id8205595">
+<title>2.6 The CURSOR button (refer to Figure 2)</title>
+<para id="id7361447">CURSOR can be used to display vertical (time)
+or horizontal (voltage) cursors on the display.</para>
+<list list-type="bulleted" id="id5975122">
+<item>Cursors can be adjusted using the knob to the left of the
+cursor button.</item>
+<item>The SELECT button changes which cursor is being adjusted. The
+solid line is the cursor that is currently selected.</item>
+<item>The values corresponding to the positions of the two cursors
+are displayed (next to the “@” icon), as well as their difference
+(next to the “∆” icon).</item>
+<item>Use the cursors to measure the peak voltage (Vp-p) and the
+period of your triangle wave.</item>
+</list>
+<para id="id9669871">Adjust the function generator to create a
+different waveform and experiment with cursors, triggers and
+scales.</para>
+</section>
+<section id="id3580408">
+<title>2.7 The SAVE/RECALL button (refer to Figure 2)</title>
+<para id="id8652622">Press the SAVE/RECALL button to bring up the
+Save/Recall menu.</para>
+<list list-type="bulleted" id="id9644364">
+<item>Under this menu, setup parameters and waveforms can be saved
+and recalled on the o-scope itself.</item>
+<item>The oscilloscope can save data to a floppy disk or to four
+internal references.</item>
+<item>Reference data can be analyzed like current data in the
+measurements and math menus.</item>
+</list>
+</section>
+<section id="id6295931">
+<title>2.8 Accessing oscilloscope data on the PC</title>
+<para id="id6575047">To facilitate saving files to the hard drive
+of the lab computers, each of the oscilloscopes has a network
+interface card installed.</para>
+<list list-type="bulleted" id="id6229820">
+<item>Open Internet Explorer.</item>
+<item>Under Favorites, click the link titled o-scope. This should
+bring up a window that has a screen shot of the LCD display of the
+oscilloscope.</item>
+<item>Click on the tab labeled DATA.</item>
+<item>In this window, data from the input, math and reference
+channels can be saved to the computer.</item>
+<item>For example, using the options under Waveform transfer from
+the instrument, choose the Source as CH1, and the Format as
+SPREADSHEET.</item>
+<item>Click Get. A dialog box opens for the data to be
+saved.</item>
+<item>Make sure to add the correct file extension when saving the
+data. (.xls for Excel.)</item>
+</list>
+</section>
+</section>
+<section id="id9745477">
+<title>Part 3: Data Acquisition</title>
+<para id="id9592528">For some applications, it is not practical to
+use an oscilloscope to analyze a signal.</para>
+<list list-type="bulleted" id="id8259054">
+<item>Some applications generate signals that operate on timescales
+of hours or weeks.</item>
+<item>Some signals require statistical analysis</item>
+<item>Some data are processed by complicated algorithms.</item>
+<item>Some signals are used to control electromechanical
+systems.</item>
+</list>
+<para id="id9742628">For any of these applications, you would need
+a data acquisition (DAQ) system that measures a signal and then
+writes the data to a file for later analysis, or communicates with
+another system for real-time use.</para>
+<para id="id9595467">In the next section of this lab, you will
+connect your signal (the function generator) to your signal
+conditioning equipment (the National Instruments SCXI) and data
+acquisition equipment (the PCI data acquisition card). You will use
+LabVIEW, a graphical programming language, to generate a simple
+Virtual Instrument (VI) to acquire data, chart the data on your
+monitor, and write the data to a file.</para>
+<section id="id6315462">
+<title>3.1 Introduction to Data Acquisition Hardware</title>
+<para id="id8213923">The SCXI is used to condition a signal. The
+SCXIs in this lab are equipped with modules that prepare the input
+signal by:</para>
+<list list-type="bulleted" id="id8856943">
+<item>Applying a gain (magnification) to the input signal</item>
+<item>Filtering out high frequency characteristics</item>
+<item>Balancing a strain bridge</item>
+</list>
+<para id="id6345847">Once the signals are conditioned, they are
+multiplexed into a single signal. This signal is then passed by a
+serial cable to the data acquisition card in the PCI slot of the
+PC. The data acquisition card uses an analog to digital converter
+(ADC) to record the magnitude of an analog signal as a digital
+value. As a digital value, these data can be interpreted by a
+computer.</para>
+</section>
+<section id="id3308407">
+<title>3.2 Configuring hardware and opening a new program</title>
+<para id="id9498560">Connect the function generator output to the
+BNC connector on Channel 0 (the first input) of the SCXI-1520
+module on the SCXI chassis.</para>
+<para id="id9711095">1. Use the function generator to produce a 200
+Hz sinusoidal wave.</para>
+<para id="id9410482">2. Open LabVIEW 8.0.</para>
+<para id="id9953795">3. Click Blank VI. Your new VI will open with
+two windows: the Front Panel (the user interface) and the Block
+Diagram (which is where you develop your graphical code). These two
+windows are linked, and as you develop your VI, you will see that
+some objects that you place in one of the windows will appear
+simultaneously in the other window.</para>
+<para id="id9341995">4. On either the front panel or the block
+diagram, click File&gt;&gt;Save As. Save your VI to the folder (on
+the desktop) that corresponds to your lab section. (Saving either
+window will save the content from both the front panel and block
+diagram windows.)</para>
+</section>
+<section id="id3081069">
+<title>3.3 Acquiring data</title>
+<para id="id9669647">You will now develop your VI to acquire the
+data that the ADC is sampling. The VI will acquire 1000 samples at
+a rate of 100,000 samples per second. Once the 1000 samples have
+been gathered, the data will be analyzed programmatically to
+determine the peak-to-peak amplitude and the DC offset. The data
+set will be displayed on a graph, and will be written to a
+measurement file that can be opened in Excel.</para>
+<para id="id9880709">LabVIEW contains a useful set of functions for
+data acquisition known as DAQmx. DAQmx is NI’s driver configuration
+software for DAQ devices. We will use the DAQ Assistant function to
+open communication with the DAQ hardware, read data from the
+device, and close communication.</para>
+<para id="id4685033">5. On the block diagram, right click to bring
+up the Functions Palette. (Refer to Figure 4.) The Functions
+Palette contains all of the functions and structures that can be
+placed directly on the block diagram. Notice that the functions are
+organized into sub-palettes by functionality.</para>
+<figure id="id10252134"><media id="idm5747296" alt=""><image src="../../media/Graphic4-6447.png" mime-type="image/png"/></media>
+
+<caption> Functions Palette </caption></figure>
+
+<para id="id6568163">6. Click Measurement
+I/O&gt;&gt;NI-DAQmx&gt;&gt;DAQ Assist.</para>
+<para id="id9430274">7. When you place the DAQ Assistant on the
+block diagram, a Create New… window will open as shown in Figure 5.
+This menu will guide you as you configure your software to
+communicate with your hardware.</para>
+<figure id="id6190300"><media id="idm3716832" alt=""><image src="../../media/Graphic5-b62b.png" mime-type="image/png"/></media>
+
+<caption> Create New DAQ Assistant
+Window </caption></figure>
+
+<para id="id9241210">8. Select Analog Input&gt;&gt;Voltage. DAQmx
+will scan the system for available hardware and present the
+options; as shown in Figure 6.</para>
+<figure id="id8757608"><media id="idm4418928" alt=""><image src="../../media/Graphic6-ed38.png" mime-type="image/png"/></media>
+
+<caption> List of Physical Channels </caption></figure>
+
+<para id="id8763493">9. Expand the cDAQ module that is labeled
+(SCXI-1520).</para>
+<para id="id2450531">10. Select ai0, (the analog input channel that
+the function generator is connected to.)</para>
+<para id="id7218344">11. Click Finish.</para>
+<figure id="id9389422"><media id="idm12134624" alt=""><image src="../../media/Graphic7-3e49.png" mime-type="image/png"/></media>
+
+<caption> DAQ Assistant Configuration
+Window </caption>
+</figure>
+
+<para id="id9735063">12. The DAQ Assistant window should now open.
+Configure the DAQ Assistant as shown in Figure 7.</para>
+<list list-type="bulleted" id="id2689069">
+<item>Set the input range from 5 to -5 volts.</item>
+<item>Change the Terminal Configuration to Differential.
+(Differential assumes that the voltage is measured between two
+channels, rather than referenced to a common ground.)</item>
+<item>Set the Acquisition Mode to N Samples.</item>
+<item>Change Samples to Read to 1000 and the Rate to
+100,000.</item>
+</list>
+<para id="id6201210">13. When you click OK, LabVIEW will build a
+subVI according to your specifications.</para>
+</section>
+<section id="id9745645">
+<title>3.4 Amplitude Measurement of Data</title>
+<para id="id9704777">Similar to the measurements made on the
+oscilloscope, LabVIEW programs can analyze characteristics of a
+signal.</para>
+<para id="id10071128">14. Right click on the Block Diagram to bring
+up the Functions Palette. (Note that if you click on the Front
+Panel you will bring up the Controls Palette, which has entirely
+different choices.)</para>
+<para id="id9735104">15. Select Express&gt;&gt;Signal
+Analysis&gt;&gt;Tone. The Configure Tone Measurements dialog box
+will now open. The Tone Express VI will display values related to
+the amplitude and frequency of the signal.</para>
+<figure id="id10260727"><media id="idm2701264" alt=""><image src="../../media/Graphic8-7949.png" mime-type="image/png"/></media>
+
+<caption> Configure Tone Measurements
+Box </caption></figure>
+
+<para id="id9578234">16. Configure the dialog box as shown in
+Figure 8.</para>
+<para id="id7910850">17. Select Amplitude and Frequency in the
+Single Tone Measurements box.</para>
+<para id="id8874067">18. When you click OK, LabVIEW will build a
+subVI according to your specifications.</para>
+<para id="id9705656">19. Place your cursor over the data output
+terminal on the DAQ Assistant icon. The cursor should change to a
+wire spool. Click on the data terminal and connect the wire to the
+signals inputterminal on the Tone Measurements icon. This wire
+represents the data flow from the DAQ Assistant to the measurements
+subVI.</para>
+<para id="id6478483">20. For both output terminals on the Tone
+Measurements icon, right click and select Create&gt;&gt;Numeric
+Indicator to create Front Panel displays of these
+parameters.</para>
+<para id="id8928223">21. Your block diagram should now be similar
+to Figure 9.</para>
+<para id="id3329104">22. There are several Express VIs in the
+Signal Analysis palette that are similar to the Tone Express VI.
+These other Express VIs display information regarding frequency
+content, DC offset, curve fitting, etc. Depending on time, you may
+want to experiment with these other functions.</para>
+<figure id="id9551064"><media id="idm6159360" alt=""><image src="../../media/Graphic9-76e4.png" mime-type="image/png"/></media>
+
+<caption> Block Diagram with Measurements
+SubVI </caption></figure>
+
+</section>
+<section id="id8882838">
+<title>3.4 Displaying data on-screen</title>
+<para id="id9854121">One of the strengths of LabVIEW is the ease
+with which user interfaces are developed. In this section we will
+develop an on-screen graph display.</para>
+<para id="id8763920">23. Right-click on the wire between the DAQ
+Assistant and the Tone Measurements icons. Select
+Create&gt;&gt;Graph Indicator.</para>
+<para id="id4731608">24. Display the Front Panel by pressing
+&lt;Ctrl-E&gt;. You should see that a graph has been created on the
+Front Panel.</para>
+<figure id="id4973630"><media id="idm5600640" alt=""><image src="../../media/Graphic10-9611.png" mime-type="image/png"/></media>
+
+<caption> Block Diagram with Graph
+Added </caption></figure>
+
+</section>
+<section id="id3482256">
+<title>3.5 Writing Data to a File</title>
+<para id="id8904238">Now that the VI can acquire data, we will
+develop a means to write the data to an Excel file and display the
+data onscreen. We will use the “Write to Measurement File” Express
+VI.</para>
+<para id="id9670287">25. Right click on the Block Diagram to bring
+up the Functions Palette.</para>
+<para id="id7368635">26. If you can’t find the “Write to
+Measurement File” Express VI, click on the search button at the top
+of the Functions Palette. Type “write to file” and double click the
+choice that ends in &lt;&lt;file I/O&gt;&gt;. The search menu will
+change into the Functions Palette, and the “Write to Measurement
+File” Express VI will be highlighted. Place this Express VI on the
+block diagram.</para>
+<figure id="id9643859"><media id="idm2997168" alt=""><image src="../../media/Graphic11-efba.png" mime-type="image/png"/></media>
+
+<caption> Write to Measurement File
+Configuration Window </caption></figure>
+
+<para id="id9667624">27. Configure the window as shown in Figure
+11. Configure the File Name window to contain the path to wherever
+you wish to store your data. Change the Segment Headers to One
+Header Only and the X Value Columns to One Column Only. Click
+OK.</para>
+<para id="id9703985">28. Place your cursor over the data output
+terminal on the DAQ assistant icon. The cursor should change to a
+wire spool. Click on the data terminal and connect the wire to the
+signals inputterminal on the Write to File icon.</para>
+<para id="id9254027">29. Right click the File Name terminal input
+on the Write to File icon. Select Create&gt;&gt;Control. This
+creates a field on the Front Panel where the user can enter the
+name of the data file that will be created.</para>
+<para id="id9311870">30. Create a write disable button by
+right-clicking on the front panel. Click Boolean&gt;&gt;Push
+Button. Type “Store Data” to change the name of the control.</para>
+<para id="id9721387">31. On the block diagram, connect the push
+button to the Enable terminal on the Write to File icon. (When this
+control is enabled, the program will write data to the file-path
+indicated on the Front Panel.)</para>
+<para id="id4839384">32. Your Block Diagram should now be similar
+to Figure 12.</para>
+<figure id="id9423124"><media id="idm4539184" alt=""><image src="../../media/Graphic12-1df6.png" mime-type="image/png"/></media>
+
+<caption> Block Diagram </caption></figure>
+
+</section>
+<section id="id9811067">
+<title>3.6 Running the VI</title>
+<para id="id4692584">33. On the Front Panel, click the Run button.
+You should see the signal from the function generator displayed on
+the graph.</para>
+<para id="id9647411">34. When you enable data storage, a .lvm file
+should will be created in your folder. On the Windows desktop, open
+your group’s folder. Right click on the .lvm file that you just
+made and select Open With&gt;&gt;Microsoft Office Excel.</para>
+<para id="id9775241">35. Plot the data and compare it to the graph
+shown on the front panel. You may want save screen shots or make
+hard-copies of any plots to include in your lab book.</para>
+</section>
+</section>
+<section id="id9983378">
+<title>Part 4: Shutting Down</title>
+<para id="id9951994">After you have saved any data you want to
+keep, close all programs and log off of the computer. Turn off the
+CompactDAQ chassis, the function generator, and the oscilloscope.
+Take time to clean up your work area. Ten percent of your lab book
+grade will be based on cleanliness.</para>
+</section>
+</section>
+<section id="id3326672">
+<title>Lab Report</title>
+<para id="id9927983">You are to submit a one-page memo report
+describing what you learned from the lab. See the Lab 1 Writing
+Assignment handout for more details.</para>
+</section>
+</content>
+</document>

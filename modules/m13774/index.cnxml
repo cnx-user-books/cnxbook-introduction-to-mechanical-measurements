@@ -1,0 +1,503 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Temperature Measurement and First-Order Dynamic Response</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>2960b518-c492-4aef-8696-9c510b6c01f5</md:uuid>
+</metadata>
+<content>
+<section id="id9841657">
+<title>Introduction:</title>
+<para id="id9841665">In this lab exercise, you will determine how
+various temperature measurement systems respond to different
+inputs. This analysis will include a thermometer, a thermocouple,
+and a thermistor.</para>
+</section>
+<section id="id9841678">
+<title>Teaching Objectives:</title>
+<para id="id9841685">The purpose of this laboratory is for each
+student to understand and do the following:</para>
+<para id="id9841691">1. Instrument calibration.</para>
+<para id="id9841696">2. Measurements with thermocouples and
+thermistors.</para>
+<para id="id9841701">3. Determination of time constants and
+comparisons of the dynamic responses of three measuring
+systems.</para>
+<para id="id9841707">4. Application of first-order dynamic behavior
+to dynamic temperature measurement problems.</para>
+</section>
+<section id="id9841717">
+<title>Preparatory Reading:</title>
+<para id="id9841724">Figliola and Beasley</para>
+<para id="id9841729">Measurement System Behavior, First Order
+Systems: pp. 72–87</para>
+<para id="id9841738">Thermistors: p. 295</para>
+<para id="id9841747">Thermoelectric Temperature Measurement: pp.
+300-313</para>
+</section>
+<section id="id9841760">
+<title>Overview:</title>
+<para id="id9841767">In this lab, we will use first-order models to
+approximate the response of a thermometer, a thermocouple, and a
+thermistor to temperature inputs. Each of these temperature sensors
+measure temperature in a different way.</para>
+<list list-type="bulleted" id="id9841775">
+<item>A thermometer senses a change in temperature as a change in
+the density of a fluid.</item>
+<item>A thermocouple consists of two wires of different metals
+joined at one end (the junction). When a voltage is applied across
+the free ends of the two wires, the differing properties of the
+wires create an induced voltage that it proportional to the
+temperature change at the junction.</item>
+<item>A thermistor is a thermally sensitive resistor. When the
+temperature of the thermistor changes, a proportional change in
+resistance occurs.</item>
+</list>
+</section>
+<section id="id9841808">
+<title>Procedure:</title>
+<section id="id9841815">
+<title>Part 1: Modify a VI for temperature measurements</title>
+<para id="id9841822">In this lab, we will build on the skills that
+were developed in <link document="m13771">Introduction to Benchtop Equipment and Data Acquisition</link>. It is assumed that the student understands
+the concepts of a Front Panel, a Block Diagram, the Control
+Palette, and the Functions Palette. It is also assumed that the
+student can search the control and functions palette for necessary
+features.</para>
+<para id="id9841838">1. Connect a thermocouple to channel 0 of the
+SCXI-1112 module.</para>
+<para id="id9841843">2. Open LabVIEW 8.0.</para>
+<para id="id9841848">3. Open the VI that you developed for <link document="m13771">Introduction to Benchtop Equipment and Data Acquisition</link>.</para>
+<para id="id9841853">4. Click File&gt;&gt;Save
+As…&gt;&gt;Substitute Copy for Original to save your VI with a new
+name.</para>
+<para id="id9841864">5. On the Block Diagram, double click the DAQ
+Assistant to open the configuration dialogue box.</para>
+<figure id="id9842763"><media id="idp5677280" alt=""><image src="../../media/Graphic1-07ce.png" mime-type="image/png"/></media>
+
+<caption> DAQ Assistant Configuration
+Box </caption></figure>
+
+<para id="id9842806">6. Configure the DAQ Assistant as shown
+above.</para>
+<list list-type="enumerated" id="id9842816">
+<item>
+<list list-type="enumerated" id="id9842820">
+<item>Click Voltage and press Delete to delete the channel you used
+in the first lab.</item>
+<item>A dialog box will ask if you want to delete the selected
+channel. Click Yes.</item>
+<item>Add a new measurement channel.
+<list list-type="enumerated" id="id9842851">
+<item>Click Add Channels&gt;&gt;Voltage.</item>
+<item>Select the channel that the thermocouple is connected to
+(SC1Mod2&gt;&gt;ai0).</item>
+<item>Click OK.</item>
+</list></item>
+<item>The input range should be 80mV max to -80mV min.
+(Thermocouples have a low voltage output.)</item>
+<item>The Terminal Configuration should be Differential. (The
+ground terminal is not used.)</item>
+<item>Change Acquisition Mode to Continuous.</item>
+<item>Click OK.</item>
+<item>A dialog box will open asking if you would like a While Loop
+to be made around the DAQ Assistant. Click No. (You will place a
+While Loop in the next step that includes the subVIs that are
+already on the Block Diagram.</item>
+</list>
+</item>
+</list>
+<para id="id9842986">7. Place a While Loop around the entire Block
+Diagram as shown below. LabVIEW While Loops are similar to While
+Loops in any text-based programming language. The routine inside
+the loop will run repeatedly until a true value is passed to the
+loop condition, represented by a red button at the bottom right
+corner of the loop.</para>
+<figure id="id9843017"><media id="idp8718688" alt=""><image src="../../media/Graphic2-202a.png" mime-type="image/png"/></media>
+
+<caption> Block diagram with while loop </caption></figure>
+
+<para id="id9843069">8. A toggle button can be used to end the
+While Loop routine. Right click on the loop condition icon and
+click Create&gt;&gt;Control.</para>
+<para id="id9843086">9. Double click the Write to Measurement File
+ExpressVI to open the configuration box. Under If a file already
+exists, select Append to File. Click OK. (Because the Write to File
+function now occurs in a loop, the data must be appended to the end
+of the file, rather than overwriting the data from the previous
+loop.)</para>
+<para id="id9843119">10. On the front panel, place a
+Thermometer.</para>
+<para id="id9843131">11. Right Click the Thermometer. Click Visible
+Items&gt;&gt;Digital Display.</para>
+<para id="id9843150">12. On the Block Diagram, inside the While
+Loop, place a Time Delay Express VI. When the Configuration Box
+opens, change the Time Delay (seconds) to 0.001. (Without a delay
+in the While Loop, the program will repeat as quickly as it can and
+consume processor power.)</para>
+<para id="id9843185">13. Your Block Diagram should resemble Figure
+3.</para>
+<para id="id9843198">14. Click File&gt;&gt;Save
+As…&gt;&gt;Copy&gt;&gt;Create Unopened Disk Copy. Save the VI with
+“Lab3” in the file name. (You will use the VI as it is now as a
+starting point in <link document="m13778">Operational Amplifiers and Signal Conditioning</link>.)</para>
+<para id="id9843214">15. Save a second copy with “Lab4” in the file
+name. (You will also use the VI as it is now as a
+starting point in <link document="m13779">Strain Gages and Force Measurement</link>.)</para>
+<figure id="id9843227"><media id="idm390848" alt=""><image src="../../media/Graphic3-4d1e.png" mime-type="image/png"/></media>
+
+<caption> Completed block diagram </caption></figure>
+
+</section>
+<section id="id9843276">
+<title>Part 2: Calibration Curve</title>
+<para id="id9843283">You will create a static calibration curve to
+correlate voltage measurements with temperature readings. We will
+use the thermometer as the standard. (Note: We use the thermometer
+as a standard for convenience. Do not assume that an
+alcohol-in-glass thermometer is a temperature measurement device
+with superior accuracy.)</para>
+<section id="id9843302">
+<title>2.1 Calibrate the thermocouple</title>
+<para id="id9843309">1. Take temperature readings with the
+thermometer in ice water and boiling water. Be careful not to allow
+the devices to come into contact with the hot plate or the bottom
+of the beaker.</para>
+<para id="id9843318">2. Record the temperatures measured.</para>
+<para id="id9843322">3. Use the thermocouple to measure both
+temperatures. Again, be careful not to allow the devices to come in
+contact with the hot plate or the bottom of the beaker.</para>
+<para id="id9843332">4. In Excel:</para>
+<list list-type="enumerated" id="id9843337">
+<item>
+<list list-type="enumerated" id="id9843341">
+<item>Plot the temperatures measured with the known standard values
+on the y-axis and the ADC output (voltage) resulting from the
+thermocouple input on the x-axis.</item>
+<item>Create a linear curve fit using the two data points.</item>
+</list>
+</item>
+</list>
+<para id="id9843360">The linear fit results in an equation that
+relates the ADC output obtained from the thermocouple to the known
+temperature from the thermometer:</para>
+<para id="id9843370">T=k(Vadc) + b</para>
+<para id="id9843384">where “T” is the temperature, “k” is the gain
+(°C/V), “Vadc” is the voltage read in to the computer, and “b” is
+the zero-voltage offset. The gain “k” is the inverse of the static
+sensitivity, which has units of V/°C.</para>
+<para id="id9843405">5. Repeat the calibration procedure for the
+thermistor.</para>
+</section>
+<section id="id9843412">
+<title>2.2 Modify your VI for calibration</title>
+<figure id="id9843422"><media id="idp10480640" alt=""><image src="../../media/Graphic4-6c42.png" mime-type="image/png"/></media>
+
+<caption> Modified block diagram </caption></figure>
+
+<para id="id9843474">In this section, you will multiply the data by
+the conversion scalar “k” that you found experimentally. You will
+also add an offset “b”.</para>
+<para id="id9843496">1. Delete the Tone Measurement ExpressVI.
+Delete the Frequency and Amplitude indicators.</para>
+<para id="id9843520">2. Delete the wires that connect the DAQ
+Assistant to the thermometer, the Waveform Graph, and the Write to
+File ExpressVI. Press Ctrl+b to remove any broken wire
+remnants.</para>
+<para id="id9843555">3. Place a Multiply and an Add on the block
+diagram.</para>
+<para id="id9843571">4. Create a control and connect it to the y
+terminal of the Multiply icon. Rename the control “k”.</para>
+<para id="id9843589">5. Create a control and connect it to the y
+terminal of the Add icon. Rename the control “b”.</para>
+<para id="id9843606">6. Wire your block diagram as shown in Figure
+4.</para>
+<para id="id9843619">7. On the front panel, enter the values you
+found experimentally for the “k” and “b” values.</para>
+<para id="id9843637">8. When you run the VI, your measurements
+should now be displayed as temperatures.</para>
+</section>
+</section>
+<section id="id9843645">
+<title>Part 3: Time Constants</title>
+<para id="id9843652">The calibration curves you found represent
+static calibrations. In the following section, you will consider
+the dynamic behavior of the sensors. The dynamics of all the
+temperature sensors used in this lab can be modeled accurately as
+first-order systems. The natural response of a first-order system
+can be characterized by a single parameter — the time
+constant.</para>
+<para id="id9843692">Time constants can be found by observing the
+response of the instrument to a step input in temperature. Note
+that the second medium governs the physics of the transient
+response. For each of the sensors, you will determine the time
+constant for transfers from ambient air to ice water and from hot
+air to ambient air.</para>
+<para id="id9843719">An ice water bath will be provided for your
+tests. A heat gun will be used to generate hot air. Caution: Keep
+all temperature sensors (particularly the thermometer and the
+thermistor) at least 9 inches away from the heat gun. Holding them
+closer to the heat gun will result in temperatures outside the
+operating range of the sensors.</para>
+<para id="id9843745">Four methods will be used to calculate various
+time constants. Table 1 summarizes the tests to be performed. The
+testing methods are described below.</para>
+<para id="id9843760">Table 1. Time constant calculation
+methods.</para>
+<table id="id9843767" summary="">
+<tgroup cols="4">
+<colspec colnum="1" colname="c1"/>
+<colspec colnum="2" colname="c2"/>
+<colspec colnum="3" colname="c3"/>
+<colspec colnum="4" colname="c4"/>
+<tbody>
+<row>
+<entry/>
+<entry>thermometer</entry>
+<entry>thermocouple</entry>
+<entry>thermistor</entry>
+</row>
+<row>
+<entry>ambient air to ice water</entry>
+<entry>1, 2</entry>
+<entry>3, 4</entry>
+<entry>3, 5</entry>
+</row>
+<row>
+<entry>hot air to ambient air</entry>
+<entry>1</entry>
+<entry>3</entry>
+<entry>3</entry>
+</row>
+<row>
+<entry>ice water to ambient air</entry>
+<entry>-</entry>
+<entry>3</entry>
+<entry>-</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<section id="id9843953">
+<title>Method 1- Time Elapsed at 63.2% Sensor Accuracy</title>
+<para id="id9843961">Thermometer: Perform this test for ambient air
+to ice water. Repeat for hot air to ambient air.</para>
+<para id="id9843984">1. Record the temperature of the initial
+medium, T0, and the temperature of the final medium, T_inf.</para>
+<para id="id9844011">2. Calculate the intermediate reference
+temperature, Tr that is 63.2 percent of the way from T0 to
+T_inf.</para>
+<para id="id9810725">3. With the instrument at steady state
+(reading T0) in the initial medium, move it quickly to the final
+medium.</para>
+<para id="id9844306">4. The time from when the step in temperature
+began to when the instrument reads Tr is the time constant, . This
+time can be measured using a stopwatch.</para>
+</section>
+<section id="id9844326">
+<title>Method 2 - Mathematic Definition of Tau</title>
+<para id="id9844333">Thermometer: Perform this test moving from
+ambient air to ice water.</para>
+<para id="id9844348">1. Record the temperature of the initial
+medium, T0, and the temperature of the final medium, T_inf.</para>
+<para id="id9844373">2. Choose an arbitrary reference temperature,
+Tr that is between 60 and 80 percent of the way from T0 to
+T_inf.</para>
+<para id="id9844409">3. With the instrument at steady state
+(reading T0) in the initial medium, move it quickly to the final
+medium.</para>
+<para id="id9844425">4. Record the time trthat it takes to reach
+the reference temperature Tr.</para>
+<para id="id9844454">5. The following expression can be used to
+calculate the time constant tau:</para>
+<para id="id9844465"><figure id="id9844468">
+<media id="idp7289296" alt=""><image src="../../media/Graphic5-eb56.png" mime-type="image/png"/></media>
+<caption> equation (1)</caption>
+</figure></para>
+</section>
+<section id="id9844497">
+<title>Method 3 – Analyze Acquired Data</title>
+<para id="id9844505">Thermocouple: Perform this test for ambient
+air-to-ice water, hot air-to-ambient air, and ice water-to-ambient
+air.</para>
+<para id="id9844530">Thermistor: Perform this test for ambient
+air-to-ice water, and hot air- to-ambient air.</para>
+<para id="id9844551">1. Run the VI.</para>
+<para id="id9844555">2. Insert the thermocouple into the initial
+medium.</para>
+<para id="id9844562">3. Click the Enable toggle control as you
+transfer the thermocouple to the final medium.</para>
+<para id="id9844573">4. When the sensor comes to equilibrium, stop
+the VI.</para>
+<para id="id9844578">5. Open your measurement file in Excel.</para>
+<para id="id9844583">6. Determine the time required for the sensor
+to complete 63.2 percent of the transient from the initial
+temperature to the final temperature.</para>
+<para id="id9844590">7. Change the file path to prevent overwriting
+data. (You can either change the name of the file after it is
+written, or you can change the name of the path that the next file
+will be written to.) You will use the saved data for subsequent
+calculations.</para>
+</section>
+<section id="id9844601">
+<title>Method 4- Error Fraction</title>
+<para id="id9844608">Thermocouple: Complete this step using the
+data from the ambient air-to-ice water transfer.</para>
+<para id="id9844623">Thermistor: Repeat this step using the data
+from the ambient air-to-ice water transfer.</para>
+<para id="id9844639">Equation 2 below gives an expression for the
+error fraction.</para>
+<para id="id9844655"><figure id="id9844658">
+<media id="idp570704" alt=""><image src="../../media/Graphic6-2605.png" mime-type="image/png"/></media>
+<caption> equation (2)</caption>
+</figure></para>
+<para id="id9844684">1. Calculate the error fraction at each
+instant of time for the data you have gathered.</para>
+<para id="id9844695">2. Take the natural log of the error fraction
+data.</para>
+<para id="id9844706">3. Plot the natural log of the error fraction
+versus time.</para>
+<para id="id9844717">4. Find the negative reciprocal of the slope
+of this curve. This is the time constant.</para>
+<para id="id9844729">The error fraction versus time curve provides
+an easy way to judge the accuracy of a first-order model for the
+data gathered. If the error fraction plot is linear, then the
+first-order model is a good approximation of the dynamic behavior
+of the system. (See pages 78–79 of Figliola and Beasley for a more
+detailed discussion of the error fraction and its use to calculate
+the time constant.) Are the thermocouple and thermistor in water
+adequately modeled by the first-order system approximation?</para>
+</section>
+<section id="id9844758">
+<title>Method 5- Least Squared Error</title>
+<para id="id9844764">Thermistor: Complete this step using the
+ambient air-to-ice water data.</para>
+<para id="id9844776">Equation (3) below gives the theoretical
+expression for the temperature, T(t), as a function of time when
+the temperature of the environment is suddenly changed from T0 to
+T∞. The thermocouple is assumed to be at temperature T0 when the
+change occurs at t = 0.</para>
+<para id="id9844814"><figure id="id9844818">
+<media id="idm1018432" alt=""><image src="../../media/Graphic7-7540.png" mime-type="image/png"/></media>
+<caption> equation (3)</caption>
+</figure></para>
+<para id="id9844847">1. Using Excel, compute a value for tau so
+that the square of the error between the theory and your
+experimental result is minimized. This is called a least square
+error approach and is very common in engineering.</para>
+<para id="id9844863">2. Plot both the test data and the results
+from Equation (3) on the same axes to compare how well this model
+fits the data.</para>
+</section>
+</section>
+<section id="id9844871">
+<title>Part 4: Additional Tests</title>
+<para id="id9844878">Once you have performed all of the tests
+outlined above, consider the following tests:</para>
+<para id="id9844884">•Transfer the thermocouple from ice water to
+room temperature air.</para>
+<para id="id9844893">How does the time constant compare with the
+one obtained from the air-to-ice-water transition? Is it different?
+Why or why not?</para>
+<para id="id9844903">•When calculating the time constant for the
+thermocouple in transition from air to ice water, you measured the
+time to go 63.2 percent of the way from the initial temperature
+(around 21 C) to the final temperature (around 0 C). Using the same
+graph, recalculate the time constant using14 C as the starting
+temperature (i.e., what is the time required to go 63.2 percent of
+the way from 14 C to 0 C?). Is this time constant value
+significantly different from the initial value you computed? Why or
+why not?</para>
+</section>
+<section id="id9844926">
+<title>Part 5: Thought Questions</title>
+<para id="id9844933">Document your response to these questions in
+your lab book.</para>
+<para id="id9844942">1. How do the time constants of the
+thermometer, thermocouple, and thermistor compare? Why is the
+thermometer “slow” compared to the other devices?</para>
+<para id="id9844952">2. How do the time constants obtained for air
+and water compare? Are they significantly different? If so, explain
+why.</para>
+<para id="id9844962">3. Does the instrument need to be at steady
+state before transferring it to the final medium?</para>
+<para id="id9844968">4. How accurate (qualitatively) is the
+first-order model approximation for the different sensors and
+media?</para>
+</section>
+<section id="id9844975">
+<title>Part 6: Frequency Response</title>
+<para id="id9844982">From the measured time responses of the
+thermometer, the thermocouple, and the thermistor, it can be seen
+that the response time of these sensors is not instantaneous. From
+this we can infer that these measurement systems may have some
+difficulty following inputs that change quickly. Frequency response
+is a means of characterizing the dynamic response capabilities of a
+system.</para>
+<para id="id9845000">The frequency response of a system can be
+determined by calculating the response of a system to sinusoidal
+inputs at different frequencies. Two important characteristics
+are:</para>
+<list list-type="bulleted" id="id9845014">
+<item>the magnitude ratio between the output and input
+waveforms</item>
+<item>the phase difference between the output and input
+waveforms</item>
+</list>
+<para id="id9845043">For a first-order system, we can create the
+frequency response plot using only our knowledge of the system time
+constant. The magnitude ratio can be calculated from the following
+expression.</para>
+<para id="id9845057"><figure id="id9845060">
+<media id="idp8959744" alt=""><image src="../../media/Graphic8-ee47.png" mime-type="image/png"/></media>
+<caption> equation (4)</caption>
+</figure></para>
+<para id="id9845088">The phase difference is determined from
+expression 5.</para>
+<para id="id9845101"><figure id="id9845104">
+<media id="idp8311472" alt=""><image src="../../media/Graphic9-6781.png" mime-type="image/png"/></media>
+<caption> equation (5)</caption>
+</figure></para>
+<para id="id9845131">In Excel, create a frequency response plot for
+the thermometer, thermocouple, and thermistor using the time
+constant from the ice water tests. Plot the magnitude ratio on a
+log-log scale and the phase difference on a semilog scale (log
+scale of frequency axis). Consider frequencies from 0.1 rad/s to
+1000 rad/s. Your plots will look nice if you use ten points per
+decade of frequency (i.e., 0.1, 0.2, 0.3, … ,1, 2, 3, … , 10, 20,
+30, …). Overlay the three magnitude responses on one plot and the
+three phase responses on another. How do the frequency response
+characteristics of the thermometer, thermocouple, and thermistor
+compare?</para>
+</section>
+<section id="id9845176">
+<title>Part 7: Dynamic Temperature Measurement Problem</title>
+<para id="id9845183">Include the analysis for this problem in your
+lab book.</para>
+<para id="id9845188">Assume that the thermocouple you used is
+placed in a water stream at a point where the temperature varies
+sinusoidally between 60 C and 80 C at a frequency of 40 rad/s.
+Assuming that the thermocouple time constant is the same as the
+value you determined in the ice water case, what will be the range
+of sinusoidal variation in the temperature readings? Repeat the
+calculations for a temperature frequency of 2 rad/s. Now assume the
+thermocouple is in air instead of water. Determine the range of the
+variation using input frequencies of 10 rad/s and 1 rad/s.</para>
+</section>
+</section>
+<section id="id9845214">
+<title>Clean Up:</title>
+<para id="id9845220">Please straighten up your lab work area. Turn
+off the data acquisition hardware and leave your work area clean.
+Your help in keeping the lab neat is appreciated.</para>
+</section>
+<section id="id9845236">
+<title>Report:</title>
+<para id="id9845243">For this lab, you are to write up the Method
+section of a full formal report. Guidelines are given in the
+example report in the Undergraduate Guide. Avoid presenting results
+in the Methods section. Your writing assignment is relatively
+short. Take the time to do a good job. Since you will not be
+submitting Results or Discussion of Results in the report, you will
+need to document your results in your lab book. Also, be sure to
+answer the questions from the lab handout in your lab book.</para>
+</section>
+</content>
+</document>

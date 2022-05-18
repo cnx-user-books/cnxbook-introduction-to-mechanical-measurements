@@ -1,0 +1,431 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Strain Gages and Force Measurement</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>da31d8d7-0eb6-4673-94e3-e448c3f59779</md:uuid>
+</metadata>
+<content>
+<section id="id5428477">
+<title>Introduction</title>
+<para id="id5428483">In this lab, you will learn about strain gages
+and the Wheatstone bridge circuit. You will see how they can be
+used for strain and force measurement. You will modify an existing
+program to measure the dynamic characteristics of a second-order
+system.</para>
+</section>
+<section id="id5428495">
+<title>Teaching Objectives</title>
+<list list-type="bulleted" id="id5428501">
+<item>Gain practical experience with resistance strain-measurement
+techniques.</item>
+<item>Learn about the Wheatstone bridge and how it is used in
+strain measurement.</item>
+<item>Use a beam instrumented with strain gages as a force
+measurement device.</item>
+<item>Use strain gages to measure the natural frequency and damping
+in a beam.</item>
+<item>Design a force transducer for measuring thrust from a model
+rocket motor.</item>
+</list>
+</section>
+<section id="id5428538">
+<title>Preparatory Reading:</title>
+<para id="id5433928">Figliola and Beasley</para>
+<para id="id5433932">Strain Measurement: pp. 425–446</para>
+</section>
+<section id="id5433942">
+<title>Procedure</title>
+<section id="id5433949">
+<title>Part 1: Strain Gages and the Wheatstone Bridge</title>
+<para id="id5433956">The metal foil strain gages used in this lab
+are resistors with a nominal (unstrained) resistance of 120 ohms. As
+they are put in tension, their resistance increases; as they are
+compressed, their resistance decreases. The Wheatstone bridge
+provides a way to convert these changes in resistance to changes in
+voltage, which are easy to work with. These voltages can be
+conditioned, transmitted, or stored digitally.</para>
+<figure id="id5433982"><media id="idm4899616" alt=""><image src="../../media/Graphic1-3e48.png" mime-type="image/png"/></media>
+
+<caption> Wheatstone Bridge Circuit </caption></figure>
+
+<para id="id5434029">Figure 1 shows a Wheatstone bridge
+configuration.</para>
+<list list-type="bulleted" id="id5434041">
+<item>Four resistors are connected in an end-to-end fashion.</item>
+<item>The input or excitation voltage is connected to the bridge
+between top and bottom nodes of the circuit.</item>
+<item>The output is the difference between the voltage at the left
+node and the voltage at the right node.</item>
+<item>An excitation voltage is required to convert the change in
+resistance (in the legs of the bridge) to a change in voltage at
+the output of the bridge.</item>
+</list>
+<para id="id5434076">For the bridge shown, the output voltage is
+expressed as</para>
+<para id="id5434081"><figure id="id5434085">
+<media id="idm6882800" alt=""><image src="../../media/Graphic2-84d7.png" mime-type="image/png"/></media>
+<caption> equation (1) </caption>
+</figure></para>
+<para id="id5434111">When building a Wheatstone bridge with strain
+gages, all four resistors have the same nominal value. Bridges can
+be built in the following configurations:</para>
+<list list-type="bulleted" id="id5434118">
+<item>Quarter Bridge-One strain gage and three fixed
+resistors</item>
+<item>Half Bridge- Two strain gages and two fixed resistors</item>
+<item>Full Bridge- Four strain gages</item>
+</list>
+<figure id="id5434142"><media id="idm6407024" alt=""><image src="../../media/Graphic3-dfc8.png" mime-type="image/png"/></media>
+
+<caption> Quarter Bridge Configuration </caption></figure>
+
+</section>
+<section id="id5434189">
+<title>Quarter Bridges</title>
+<para id="id5434196">Figure 3 illustrates a quarter bridge
+configuration. The quarter bridge has one active leg, i.e., one leg
+with a changing resistance. From equation (1) above we can derive
+an expression for the output voltage as a function of the
+resistance change ∆R:</para>
+<para id="id5443223">
+<figure id="id5443227"><media id="idm5024416" alt=""><image src="../../media/Graphic4-e108.png" mime-type="image/png"/></media>
+
+<caption> equation (2) </caption></figure>
+</para>
+</section>
+<section id="id5443252">
+<title>Half and Full Bridges</title>
+<para id="id5443259">Figure 5 and Figure 6 show half-bridge and
+full-bridge configurations respectively.</para>
+<list list-type="bulleted" id="id5443281">
+<item>Half bridge: two active legs, one in tension and one in
+compression. These legs are adjacent legs in the bridge.</item>
+<item>Full bridge: four active legs, two in tension and two in
+compression. The gages in tension are on opposite legs of the
+bridge.</item>
+</list>
+<para id="id5443314">Using equation 1 and Figure 1 as a guide,
+derive expressions for the output voltage of the half-bridge and
+full-bridge circuits.</para>
+<para id="id5443321">Thought Question</para>
+<para id="id5443329">A half bridge could be made with two gages in
+tension on opposite legs. When would this be useful? What would be
+the main problem with doing this?</para>
+<figure id="id5443343"><media id="idm7365328" alt=""><image src="../../media/Graphic5-d61b.png" mime-type="image/png"/></media>
+
+<caption> Half Bridge Configuration </caption></figure>
+
+<figure id="id5443397"><media id="idm3839200" alt=""><image src="../../media/Graphic6-6e04.png" mime-type="image/png"/></media>
+
+<caption> Full Bridge Configuration </caption></figure>
+
+</section>
+<section id="id5443446">
+<title>Part 2: Calibration of the Strain-gaged Cantilever
+Beam</title>
+<para id="id5443453">Your TA will provide an aluminum beam
+instrumented with strain gages.</para>
+<para id="id5443459">1. Clamp the beam securely to the edge of the
+lab table with the gaged portion of the beam cantilevered beyond
+the edge of the bench.</para>
+<para id="id5443466">2. Using the junction box provided, connect a
+single strain gage in a quarter bridge configuration. (Refer to
+Figure 3 as a guide.)</para>
+<para id="id5443478">3. Connect the junction box output cable to
+Channel 2 of the SCXI-1520 strain gage module. The SCXI-1520
+provides an excitation voltage to the bridge and amplifies the
+output voltage from the bridge to ranges that are easily observable
+or acceptable for data acquisition. The excitation voltage Vi is 5
+V and the gain is 500. When connected to the signal conditioning
+board, the amplified bridge output can be read by the data
+acquisition software.</para>
+<para id="id5428184">4. Open the “Lab4” VI that you created in <link document="m13774">Temperature Measurement and First-Order Dynamic Response</link>.</para>
+<para id="id5428190">5. Hang weights from the end of the
+beam.</para>
+<para id="id5428195">6. Record the voltage measured with LabVIEW in
+your lab book.</para>
+<para id="id5428201">7. Repeat steps 5 and 6 for several different
+weights.</para>
+<para id="id5428206">8. In Excel, plot the voltage (input) versus
+weight (output).</para>
+<para id="id5443772">9. Find the best fit linear relationship for
+the data. The resulting equation can be used to calibrate the
+voltage output of the strain gages.</para>
+<para id="id5443778">10. Apply several loads not used for
+calibration to test the validity of the linear curve fit.</para>
+</section>
+<section id="id5443785">
+<title>Part 3: Comparison of Theoretical Strain to Measured
+Strain</title>
+<para id="id5443792">In this step, we will compare a theoretically
+based estimate of strain for a given load to that which was
+measured earlier. First we will determine the strain corresponding
+to the voltage measurements of step 2.</para>
+<para id="id5443804">1. Measure the excitation voltage for bridge
+circuit, Vi.</para>
+<para id="id5443823">The circuit analyses from step one showed that
+the bridge output Vo is related to the excitation voltage by the
+following relationship</para>
+<para id="id5443839"><figure id="id5443844">
+<media id="idm5607360" alt=""><image src="../../media/Graphic7-f5ed.png" mime-type="image/png"/></media>
+<caption> equation (2) </caption>
+</figure></para>
+<para id="id5443870">where K equals 1/4 for a quarter bridge, 1/2
+for a half bridge, and 1 for a full bridge. The voltage measured in
+LabVIEW is related to the bridge output by</para>
+<para id="id5443885"><figure id="id5439125">
+<media id="idm13503552" alt=""><image src="../../media/Graphic8-e823.png" mime-type="image/png"/></media>
+<caption> equation (3) </caption> </figure></para>
+<para id="id5439152">where Kamp is the gain of the signal
+conditioning board. Because the bridge resistances are not balanced
+exactly and the weight of the beam itself produces some strain, you
+will observe a nonzero output voltage when there is no load
+applied.</para>
+<para id="id5439177">2. Measure the output voltage with no load.
+Call this voltage Voffset.</para>
+<para id="id5439193">3. To determine the strain induced by the
+applied loads, measure the changes in the display voltages relative
+to this offset voltage (Vdisplay–Voffset).</para>
+<para id="id5439222">For a strain gage, the gage factor is defined
+as</para>
+<para id="id5439227"><figure id="id5439232">
+<media id="idm6543216" alt=""><image src="../../media/Graphic9-3fb7.png" mime-type="image/png"/></media>
+<caption> equation (4) </caption> </figure></para>
+<para id="id5439258">where epsilon is the strain experienced by the gage.
+The gages used in this lab have a gage factor of 2.12±0.8%.</para>
+<para id="id5439274">4. Derive an expression for the strain in the
+beam using equations (2) through (4). Your empirical strain
+estimate should be in the range of 0 to 2000 microstrains.</para>
+<para id="id5439281">A theoretical estimate of the strain can be
+obtained by drawing on topics from CEEn 203. The stress on the
+surface of a beam in bending is given by</para>
+<para id="id5439292"><figure id="id5439297">
+<media id="idm14318352" alt=""><image src="../../media/Graphic10-59de.png" mime-type="image/png"/></media>
+<caption> equation (5) </caption> </figure></para>
+<para id="id5439323">where M is the applied moment at the location
+of interest, y is the distance from the neutral axis (in this case,
+the half height of the beam cross section), I is the area moment of
+inertia of the cross section with respect to the neutral axis.
+Recall that for a rectangular cross section,</para>
+<para id="id5439350"><figure id="id5439356">
+<media id="idm5449920" alt=""><image src="../../media/Graphic11-d7c1.png" mime-type="image/png"/></media>
+<caption> equation (6)</caption> </figure></para>
+<para id="id5439383">Recall also that stress and strain are related
+by Young’s modulus:</para>
+<para id="id5439389"><figure id="id5439394">
+<media id="idm6834784" alt=""><image src="../../media/Graphic12-67fb.png" mime-type="image/png"/></media>
+<caption> equation (7)</caption> </figure></para>
+<para id="id5439422">For aluminum, E = 10.4x10^6 psi.</para>
+<para id="id5439442">5. Using equations (5) through (7), estimate
+the strain where the gages are bonded to the beam. How does the
+theoretically obtained strain compare to the value determined from
+measurements? If they are different, what are some possible
+reasons?</para>
+</section>
+<section id="id5439456">
+<title>Part 4: Experiments with Half and Full Bridges</title>
+<para id="id5439463">Repeat parts 2 and 3 for the half bridge and
+the full bridge configurations.</para>
+</section>
+<section id="id5439470">
+<title>Part 5: Measurement of an Unknown Load</title>
+<para id="id5439476">Based upon the calibration determined in step
+2, use your beam to determine the weight of an arbitrary object.
+You may use the quarter bridge, the half bridge, or full bridge
+configuration for this test. Measure the actual weight using a
+precision scale. How does the weight determined with your beam
+compare to the object's true weight? How certain is your
+measurement? What are some possible sources of uncertainty?</para>
+</section>
+<section id="id5439499">
+<title>Part 6: Sensitivity to Extraneous Loads and Temperature
+Variations</title>
+<para id="id5439507">Strain gages are often used as transducers to
+measure force in a structure or mechanical device. A perfect sensor
+is sensitive only to changes in the variable of interest and is
+completely insensitive to changes in extraneous parameters. (Such a
+sensor is impossible to create.) In practice, every effort should
+be made to minimize sensitivity to extraneous variables. In the
+case of the cantilever-beam scale, the objective is to measure the
+weight of objects or alternatively, to measure forces in the
+vertical plane. As such, a good design will be much less sensitive
+to loads in other directions (axial, lateral, torsional, etc.).
+Also a good design will not be sensitive to strains induced by
+other means, such as thermal expansion.</para>
+<para id="id5439536">Your TA will supervise in the following two
+demonstrations.</para>
+<section id="id5439543">
+<title>6.1 Lateral Sensitivity</title>
+<para id="id5439549">Use the instrumented beam of square cross
+section provided by your TA.</para>
+<para id="id5439555">1. Clamp the beam in a cantilever fashion so
+that it will measure vertically applied loads.</para>
+<para id="id5439561">2. Using your hand, gently apply lateral and
+axial loads to the beam. Do your best to not apply vertical bending
+loads to the beam.</para>
+<para id="id5439571">3. Compare the sensitivity of the quarter
+bridge to that of either the half bridge or full bridge to these
+extraneous loads. Which configuration seems to work the best
+overall? Explain why this is so. Which extraneous loads are
+"rejected" by which configurations? Explain why. (Note: The steps
+of this paragraph are more easily said than done. The point is that
+the quarter bridge is more sensitive to off-axis loads than either
+the half bridge or full bridge. If you have difficulty
+demonstrating this, don't stress out.)</para>
+</section>
+<section id="id5439603">
+<title>6.2 Temperature Sensitivity</title>
+<para id="id5439609">Using a quarter bridge configuration, apply a
+load to the beam and measure the voltage output.</para>
+<para id="id5439616">Apply heat uniformly to the beam (140 F max)
+near the gages and observe any changes in the voltage output. Do
+not apply heat to the gages directly! Why does the voltage (which
+corresponds to the measured strain) change? Repeat the procedure
+using a full-bridge configuration. Compare the sensitivity of the
+quarter bridge and full bridge configurations to temperature
+variations. How would you expect the half bridge to behave?</para>
+</section>
+</section>
+<section id="id5439649">
+<title>Part 7: Dynamic Characteristics</title>
+<para id="id5439655">Up to this part of the lab, you have examined
+the static characteristics of the strain-gage bridge. Now you will
+modify the VI that you developed for <link document="m13774">Temperature Measurement and First-Order Dynamic Response</link> to measure the dynamic
+characteristics of a signal from the strain-gage bridge. You will
+excite the dynamics of the cantilever beam by plucking it. You will
+use your VI to display the response of the vibrating beam.</para>
+<section id="id5439674">
+<title>7.1 Differential Model</title>
+<para id="id5439680">The first mode of vibration of the cantilever
+beam can be modeled using a simple mass-spring-damper model. This
+model results in a second-order differential equation that
+describes the dynamics of the system. You will observe that the
+response of the strain –gages to an initial deflection is a damped
+sinusoid. This is the expected response for a second-order system.
+Using acquired data; you will compute and display values for the
+damping ratio and the natural frequency of the first vibrational
+mode of the beam.</para>
+</section>
+<section id="id5439704">
+<title>7.2 Damping Ratio and Damped Natural Frequency</title>
+<para id="id5439712">Figure 5 shows the response of a second-order
+system to an initial condition. This response plot will be used to
+define the damping ratio and the natural
+frequency for this system.
+From the amplitudes x1and xn, the damping ratio can be
+calculated using the following expression:</para>
+<para id="id5439815"><figure id="id5439820">
+<media id="idm6150112" alt=""><image src="../../media/Graphic13-a385.png" mime-type="image/png"/></media>
+<caption> equation (8)</caption></figure></para>
+<para id="id5471548">The damped natural frequency 
+<!--Sorry, this media type is not supported.-->can be determined by
+measuring the period of the damped oscillations. An accurate
+measurement of the period T is obtained by considering several
+periods:</para>
+<para id="id5471583"><figure id="id5471588">
+<media id="idm5671616" alt=""><image src="../../media/Graphic14.png" mime-type="image/png"/></media>
+<caption> equation (9)</caption> </figure></para>
+<para id="id5471612"><figure id="id5471618">
+<media id="idm4206496" alt=""><image src="../../media/Graphic15.png" mime-type="image/png"/></media>
+<caption> equation (10)</caption></figure></para>
+<para id="id5471643">Once 
+<!--Sorry, this media type is not supported.-->and 
+<!--Sorry, this media type is not supported.-->are known, the
+natural frequency of oscillation can be calculated by</para>
+<para id="id5471696"><figure id="id5471701">
+<media id="idm5793888" alt=""><image src="../../media/Graphic16.png" mime-type="image/png"/></media>
+<caption> equation (11)</caption></figure></para>
+<figure id="id5471732"><media id="idm5086048" alt=""><image src="../../media/Graphic17.png" mime-type="image/png"/></media>
+
+<caption>Second-order system Response</caption></figure>
+
+</section>
+<section id="id5471777">
+<title>7.3 Programming Exercise</title>
+<para id="id5471783">You will modify your VI to automate the
+calculation of 
+<!--Sorry, this media type is not supported.-->and 
+<!--Sorry, this media type is not supported.-->for the cantilever
+beam.</para>
+<para id="id5471833">1. Your TA will direct you to a subVI named
+“Damping Ratio” that is has been started for you.</para>
+<para id="id5471846">2. To place the subVI on your block diagram,
+open the functions palette and select Select a VI…</para>
+<para id="id5471855">3. Connect the Data wire from the DAQ
+Assistant to the Measured Data input of the Damping Ratio
+subVI.</para>
+<para id="id5471875">4. Open the block diagram by double-clicking
+the subVI icon. (The block diagram is shown in Figure 18.)</para>
+<para id="id5471890">5. You will need to modify the block diagram
+for the VI to work. Refer to equations 8-11 as you design a block
+diagram that will calculate the Damping Ratio of your
+signal.</para>
+<figure id="id5471905"><media id="idm7345136" alt=""><image src="../../media/Graphic18.png" mime-type="image/png"/></media>
+
+<caption> Damping Ratio SubVI Block
+Diagram </caption></figure>
+
+<para id="id5471949">6. You will notice that the necessary inputs
+for the subVI are placed along the left of the block diagram. The
+outputs are placed along the right of the block diagram. The Peak
+Detector VI is used to locate the peaks (or valleys) of the signal.
+The locations of the peaks are given as indexed data points. For
+example, if the first peak occurs in between the sixth and seventh
+data points, the location will be 6.5. The time at which this peak
+occurs can be calculated using the sample rate.</para>
+<para id="id5471969">7. For more information about the Peak
+Detector or other VIs, press Ctrl+H to activate the context help
+window.</para>
+<para id="id5471975">(Hint: you may want to use the index array
+function to pull values such as x1, xn, t1 and tn out of the
+amplitude and location arrays.)</para>
+<para id="id5472002">This exercise is meant to give you a feel for
+the possibilities for data acquisition, processing, and display
+using computer software tools. Be sure to save a copy of your data
+for plotting. You will need it for your writing assignment.</para>
+</section>
+</section>
+<section id="id5472016">
+<title>Part 8: Design of a Force Transducer</title>
+<para id="id5472023">For your course project, you will design a
+force transducer for measuring the thrust of a model rocket motor.
+This exercise is intended to help you initiate the design process.
+You may assume that the maximum thrust that will be sensed by your
+transducer is 5 lb.</para>
+<section id="id5472037">
+<title>Cantilever-Beam Force Transducer</title>
+<para id="id5472043">Assume that you will use a cantilever-beam
+configuration similar to what was used in this lab. A full
+strain-gage bridge will be used. The width of two gages
+side-by-side is 1/2 inch. A good design will result in 2000
+microstrains under the maximum load and will have a natural
+frequency above 100 Hz. Meeting both of these objectives might not
+be possible with a cantilever-beam design. You are to determine the
+thickness of the cross section where the gages are to be mounted
+and the distance from where the motor is mounted to the center of
+the gages (i.e., the length of the cantilever).</para>
+</section>
+<section id="id5472070">
+<title>Spreadsheet Analysis</title>
+<para id="id5472076">Develop a spreadsheet to perform your
+calculations. A spreadsheet will simplify the evaluation of
+different designs. This analysis will be a good starting point for
+the analysis of your project. Note: Your project will involve
+different loads and different dimensions than the transducer used
+in this lab. The calculations, however, are the same.</para>
+</section>
+</section>
+</section>
+<section id="id5472098">
+<title>Lab Report</title>
+<para id="id5472104">For this lab you will write the Results and
+Discussion of Results sections of a full report. As you perform the
+lab, think about what data should be saved or recorded for
+presentation and why these data are important. For some of your
+data, tabulation is sufficient (e.g., calculated strain vs.
+measured strain). Other data should be recorded using LabVIEW
+(e.g., dynamic response of strain when the beam is plucked). Make
+sure that you include your thoughts about the results you obtained
+and why they are important. Discuss their agreement with your
+expectations.</para>
+</section>
+</content>
+</document>
